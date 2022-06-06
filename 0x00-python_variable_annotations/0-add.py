@@ -6,4 +6,5 @@
 
 
 def add(a: float, b: float) -> float:
+    """ Return add of two numbers """
     return a + b
