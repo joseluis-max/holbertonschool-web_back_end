@@ -5,5 +5,6 @@
 """
 
 
-def to_str(n: float) -> str:
+def to_str(n: float) -> str: 
+    """ Convert to string a float number """
     return str(n)

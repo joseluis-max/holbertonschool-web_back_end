@@ -9,4 +9,5 @@ from typing import List
 
 
 def sum_list(input_list: List[float]) -> float:
+    """ Sum every element in a list"""
     return sum(input_list)
