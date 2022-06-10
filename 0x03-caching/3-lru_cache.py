@@ -8,6 +8,7 @@ class LRUCache(BaseCaching):
     cache_copy = {}
     insert = 0
     LRU = 0
+
     def __init__(self) -> None:
         """ Call super and init super """
         super().__init__()
@@ -34,10 +35,10 @@ class LRUCache(BaseCaching):
                 self.insert += 1
 
     def get(self, key):
-            """ Must return the value in self.cache_data linked to key """
-            if key:
-                try:
-                    return self.cache_data.get(key)
-                except KeyError:
-                    return None
-            return None
+        """ Must return the value in self.cache_data linked to key """
+        if key:
+            try:
+                return self.cache_data.get(key)
+            except KeyError:
+                return None
+        return None
