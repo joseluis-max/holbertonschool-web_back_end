@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 """ MRUCache is a caching system """
-from re import S
-
-
 BaseCaching = __import__('base_caching').BaseCaching
 
 
@@ -32,7 +29,6 @@ class MRUCache(BaseCaching):
                             del self.cache_data[k]
                             del self.cache_copy[k]
                             self.MRU += 1
-                            break
                 self.cache_copy[key] = [item, self.insert]
                 self.cache_data[key] = item
                 if self.insert <= 4:
