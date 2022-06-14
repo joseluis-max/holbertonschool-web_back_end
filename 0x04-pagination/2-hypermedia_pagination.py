@@ -84,7 +84,7 @@ class Server:
         if next_page > total_pages:
             next_page = None
 
-        if prev_page < 0:
+        if prev_page <= 0:
             prev_page = None
 
         return {
