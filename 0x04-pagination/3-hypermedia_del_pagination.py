@@ -45,10 +45,14 @@ class Server:
         """ """
         page: int = index / page_size
         next_index: int = int(page_size * (page + 1))
+        data = self.__dataset[index: next_index]
+        if len(data) != page_size:
+            diff = page_size - len(data)
+            data = self.__dataset[index: (next_index + diff)]
         assert(index < len(self.__dataset))
         return {
             'index': index,
-            'data': self.__dataset[index: next_index],
+            'data': data,
             'page_size': page_size,
             'next_index': next_index
         }
