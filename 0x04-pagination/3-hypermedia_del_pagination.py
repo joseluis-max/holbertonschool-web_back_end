@@ -45,10 +45,15 @@ class Server:
         """ get_hyper_index """
         assert type(index) == int and type(page_size) == int
         assert(index < len(self.__dataset))
-        page: int = index / page_size
-        next_index: int = int(page_size * (page + 1))
-        data = self.__dataset[index: next_index]
-        print(len(self.__dataset))
+        dataset = self.__indexed_dataset()
+        data = []
+        next_index = index
+
+        for _ in range(page_size):
+            while not dataset.get(next_index):
+                next_index += 1
+            data.append(dataset.get(next_index))
+            next_index += 1
         return {
             'index': index,
             'data': data,
