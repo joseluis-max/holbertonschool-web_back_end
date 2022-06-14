@@ -45,7 +45,7 @@ class Server:
         """ get_hyper_index """
         assert type(index) == int and type(page_size) == int
         assert(index < len(self.__dataset))
-        dataset = self.__indexed_dataset()
+        dataset = self.indexed_dataset()
         data = []
         next_index = index
 
