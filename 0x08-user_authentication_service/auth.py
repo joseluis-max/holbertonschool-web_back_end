@@ -3,7 +3,6 @@
     in a password string arguments and returns bytes.
 """
 import bcrypt
-
 from db import DB
 from user import User
 from sqlalchemy.exc import NoResultFound
@@ -84,6 +83,7 @@ class Auth:
 
     @property
     def db(self):
+        """ Dababase """
         return self._db
 
 
