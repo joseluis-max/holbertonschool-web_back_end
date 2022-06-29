@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ Flask app """
-from flask import Flask, jsonify, request, abort, make_response, redirect
 from auth import Auth
+from flask import Flask, jsonify, request, abort, make_response, redirect
 
 
 AUTH = Auth()
@@ -96,4 +96,4 @@ def update_password():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="5000")
+    app.run(host="0.0.0.0", port=5000)
