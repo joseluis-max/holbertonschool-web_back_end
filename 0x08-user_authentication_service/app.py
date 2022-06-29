@@ -10,11 +10,13 @@ app = Flask(__name__)
 
 @app.route('/', method=["GET"])
 def home():
+    """ Home """
     return jsonify({"message": "Bienvenue"})
 
 
 @app.route('/user', method=["POST"], strict_slashes=False)
 def user():
+    """ User """
     email = request.form.get('email')
     password = request.form.get('password')
 
@@ -28,6 +30,7 @@ def user():
 
 @app.route('/sessions', method=["GET"], strict_slashes=False)
 def login():
+    """ Login """
     email = request.form.get('email')
     password = request.form.get('password')
     if not AUTH.valid_login(email, password):
@@ -42,6 +45,7 @@ def login():
 
 @app.route('/sessions', method=["DELETE"], strict_slashes=False)
 def logout():
+    """ Log out """
     session_id = request.cookies.get('session_id')
     usr = AUTH.get_user_from_session_id(session_id)
     if usr is None:
@@ -53,6 +57,7 @@ def logout():
 
 @app.route('/profile', method=["GET"], strict_slashes=False)
 def profile():
+    """ profile """
     session_id = request.cookies.get('session_id')
     usr = AUTH.get_user_from_session_id(session_id)
     if usr:
@@ -63,6 +68,7 @@ def profile():
 
 @app.route('/reset_password', method=['POST'], strict_slashes=False)
 def get_reset_password_token():
+    """ get reset password token """
     email = request.form.get('email')
     usr = AUTH.db.find_user_by(email=email)
     if usr:
@@ -75,6 +81,7 @@ def get_reset_password_token():
 
 @app.route('/reset_password', method=['PUT'], strict_slashes=False)
 def update_password():
+    """ update password """
     email = request.form.get('email')
     reset_token = request.form.get('reset_token')
     new_password = request.form.get('new_password')
