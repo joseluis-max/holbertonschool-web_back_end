@@ -72,6 +72,14 @@ class Auth:
         except NoResultFound:
             raise ValueError
 
+    def update_password(self, reset_token: str, password: str) -> None:
+        """ Update password """
+        try:
+            usr = self._db.find_user_by(reset_token=reset_token)
+            self._db.update_user(usr.id, password=_hash_password(password), reset_token=None)
+        except NoResultFound:
+            raise ValueError
+
 
 def _hash_password(password: str) -> bytes:
     """ salted hash of the input password, hashed with bcrypt.hashpw. """
