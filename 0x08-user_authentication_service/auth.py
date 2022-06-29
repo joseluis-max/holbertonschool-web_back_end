@@ -1,4 +1,4 @@
-#!/usr/bin/env pyth3
+#!/usr/bin/env python3
 """ define a _hash_password method that takes
     in a password string arguments and returns bytes.
 """
