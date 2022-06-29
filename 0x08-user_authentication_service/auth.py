@@ -63,7 +63,7 @@ class Auth:
         return None
 
     def get_reset_password_token(self, email: str) -> str:
-        """ Find the user corresponding to the email. """
+        """ get_reset_password_token """
         try:
             user = self._db.find_user_by(email=email)
             token: str = _generate_uuid()
@@ -79,6 +79,10 @@ class Auth:
             self._db.update_user(usr.id, password=_hash_password(password), reset_token=None)
         except NoResultFound:
             raise ValueError
+
+    @property
+    def db(self):
+        return self._db
 
 
 def _hash_password(password: str) -> bytes:
