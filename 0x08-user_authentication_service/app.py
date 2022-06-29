@@ -13,7 +13,7 @@ def home():
     return jsonify({"message": "Bienvenue"})
 
 
-@app.route('/user', method=["POST"])
+@app.route('/user', method=["POST"], strict_slashes=False)
 def user():
     email = request.form.get('email')
     password = request.form.get('password')
@@ -25,7 +25,7 @@ def user():
         return jsonify({"message": "email already registered"}), 400
 
 
-@app.route('/sessions', method=["GET"])
+@app.route('/sessions', method=["GET"], strict_slashes=False)
 def session():
     email = request.form.get('email')
     password = request.form.get('password')
