@@ -8,13 +8,13 @@ AUTH = Auth()
 app = Flask(__name__)
 
 
-@app.route('/', method=["GET"])
+@app.route("/", method=["GET"])
 def home():
     """ Home """
     return jsonify({"message": "Bienvenue"})
 
 
-@app.route('/user', method=["POST"], strict_slashes=False)
+@app.route("/user", method=["POST"], strict_slashes=False)
 def user():
     """ User """
     email = request.form.get('email')
@@ -28,7 +28,7 @@ def user():
         return jsonify({"message": "email already registered"}), 400
 
 
-@app.route('/sessions', method=["GET"], strict_slashes=False)
+@app.route("/sessions", method=["GET"], strict_slashes=False)
 def login():
     """ Login """
     email = request.form.get('email')
@@ -43,7 +43,7 @@ def login():
         return response
 
 
-@app.route('/sessions', method=["DELETE"], strict_slashes=False)
+@app.route("/sessions", method=["DELETE"], strict_slashes=False)
 def logout():
     """ Log out """
     session_id = request.cookies.get('session_id')
@@ -55,7 +55,7 @@ def logout():
         return redirect('/')
 
 
-@app.route('/profile', method=["GET"], strict_slashes=False)
+@app.route("/profile", method=["GET"], strict_slashes=False)
 def profile():
     """ profile """
     session_id = request.cookies.get('session_id')
@@ -66,7 +66,7 @@ def profile():
         return 403.
 
 
-@app.route('/reset_password', method=['POST'], strict_slashes=False)
+@app.route("/reset_password", method=['POST'], strict_slashes=False)
 def get_reset_password_token():
     """ get reset password token """
     email = request.form.get('email')
@@ -79,7 +79,7 @@ def get_reset_password_token():
         return 403
 
 
-@app.route('/reset_password', method=['PUT'], strict_slashes=False)
+@app.route("/reset_password", method=['PUT'], strict_slashes=False)
 def update_password():
     """ update password """
     email = request.form.get('email')
