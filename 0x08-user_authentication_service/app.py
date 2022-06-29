@@ -20,7 +20,8 @@ def user():
 
     try:
         AUTH.register_user(email, password)
-        return jsonify({"email": {}, "message": "user created".format(email)}), 200
+        return jsonify({"email": {}, "message":
+                        "user created".format(email)}), 200
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
 
@@ -33,7 +34,8 @@ def login():
         abort(401)
     else:
         session_id = AUTH.create_session(email)
-        response = make_response({"email": {}, "message": "logged in".format(email)})
+        response = make_response({"email": {}, "message":
+                                  "logged in".format(email)})
         response.set_cookie('session_id', session_id)
         return response
 
@@ -65,7 +67,8 @@ def get_reset_password_token():
     usr = AUTH.db.find_user_by(email=email)
     if usr:
         token = AUTH.get_reset_password_token(email)
-        return jsonify({"email": "{}".format(email), "reset_token": "{}".format(token)}), 200
+        return jsonify({"email": "{}".format(email),
+                        "reset_token": "{}".format(token)}), 200
     else:
         return 403
 
@@ -79,7 +82,8 @@ def update_password():
         usr = AUTH.db.find_user_by(email=email)
         if usr.reset_token == reset_token:
             AUTH.update_password(reset_token, new_password)
-            return jsonify({"email": "{}".format(email), "message": "Password updated"}), 200
+            return jsonify({"email": "{}".format(email),
+                            "message": "Password updated"}), 200
     except Exception:
         return 403
 
