@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Flask app """
+""" Set up a basic Flask app """
 from auth import Auth
 from flask import Flask, jsonify, request, abort, make_response, redirect
 
@@ -10,13 +10,13 @@ app = Flask(__name__)
 
 @app.route("/", method=["GET"], strict_slashes=False)
 def home():
-    """ Home """
+    """ Home route """
     return jsonify({"message": "Bienvenue"}), 200
 
 
-@app.route("/user", method=["POST"], strict_slashes=False)
+@app.route("/users", method=["POST"], strict_slashes=False)
 def user():
-    """ User """
+    """ User registration """
     email = request.form.get('email')
     password = request.form.get('password')
 
