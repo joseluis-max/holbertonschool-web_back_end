@@ -10,6 +10,17 @@ from uuid import uuid4
 from typing import Union
 
 
+def _hash_password(password: str) -> bytes:
+    """ salted hash of the input password, hashed with bcrypt.hashpw. """
+
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+
+
+def _generate_uuid() -> str:
+    """ Return a string representation of a new UUID. """
+    return str(uuid4())
+
+
 class Auth:
     """Auth class to interact with the authentication database.
     """
@@ -86,14 +97,3 @@ class Auth:
     def db(self):
         """ Dababase """
         return self._db
-
-
-def _hash_password(password: str) -> bytes:
-    """ salted hash of the input password, hashed with bcrypt.hashpw. """
-
-    return bcrypt.hashpw(password.encode(), bcrypt.gensalt())
-
-
-def _generate_uuid() -> str:
-    """ Return a string representation of a new UUID. """
-    return str(uuid4())
