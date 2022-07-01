@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
-""" DB module
+"""DB module
 """
 from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
+from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
-from sqlalchemy.exc import NoResultFound
-from user import Base, User
+
+from user import Base
+from user import User
+
 
 valid_fields = [
     "id",
@@ -15,6 +19,7 @@ valid_fields = [
     "session_id",
     "reset_token"
 ]
+
 
 class DB:
     """DB class
@@ -30,7 +35,8 @@ class DB:
 
     @property
     def _session(self) -> Session:
-        """Memoized session object
+        """Generates a new session if not exist
+            Memoized session object
         """
         if self.__session is None:
             DBSession = sessionmaker(bind=self._engine)
@@ -38,33 +44,46 @@ class DB:
         return self.__session
 
     def add_user(self, email: str, hashed_password: str) -> User:
-        """ Create a new User in Database """
-        user = User(email=email, hashed_password=hashed_password)
-        self._session.add(user)
+        """saves an new user to the database and return it
+        """
+        new_user = User()
+
+        new_user.email = email
+        new_user.hashed_password = hashed_password
+
+        self._session.add(new_user)
         self._session.commit()
-        return user
+
+        return new_user
 
     def find_user_by(self, **kwargs) -> User:
-        """ Find a user by arbitrary keyword """
+        """takes in arbitrary keyword arguments
+            and returns the first row found in the users table
+            as filtered by the method’s input arguments
+        """
         if not kwargs:
             raise InvalidRequestError
-        for k in kwargs.items():
+
+        for k in kwargs.keys():
             if k not in valid_fields:
                 raise InvalidRequestError
-        try:
-            user = self._session.query(User).filter_by(**kwargs).first()
-            if user is None:
-                raise NoResultFound
-            return user
-        except InvalidRequestError:
-            raise
+
+        result = self._session.query(User).filter_by(**kwargs).first()
+
+        if not result:
+            raise NoResultFound
+
+        return result
 
     def update_user(self, user_id: int, **kwargs) -> None:
-        """ Update user in database """
+        """Updates an user in the database
+        """
         user = self.find_user_by(id=user_id)
+
         for k, v in kwargs.items():
             if not hasattr(user, k):
                 raise ValueError
+
             setattr(user, k, v)
+
         self._session.commit()
-        return None
