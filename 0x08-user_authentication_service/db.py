@@ -8,6 +8,13 @@ from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.exc import NoResultFound
 from user import Base, User
 
+valid_fields = [
+    "id",
+    "email",
+    "hashed_password",
+    "session_id",
+    "reset_token"
+]
 
 class DB:
     """DB class
@@ -39,6 +46,11 @@ class DB:
 
     def find_user_by(self, **kwargs) -> User:
         """ Find a user by arbitrary keyword """
+        if not kwargs:
+            raise InvalidRequestError
+        for k in kwargs.items():
+            if k not in valid_fields:
+                raise InvalidRequestError
         try:
             user = self._session.query(User).filter_by(**kwargs).first()
             if user is None:
