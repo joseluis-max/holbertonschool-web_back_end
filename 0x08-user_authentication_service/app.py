@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
-"""Set up a basic Flask app
+"""This module contains a basic Flask app
 """
-from auth import Auth
+
 from flask import Flask, jsonify, request, abort, make_response, redirect
+from auth import Auth
 
 
 AUTH = Auth()
+
 app = Flask(__name__)
 
 
 @app.route("/")
-def home():
-    """Home route
+def get_request():
+    """Home endpoint
     """
     return jsonify({"message": "Bienvenue"}), 200
 
