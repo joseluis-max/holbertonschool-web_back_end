@@ -90,9 +90,8 @@ class Auth:
 
 def _hash_password(password: str) -> bytes:
     """ salted hash of the input password, hashed with bcrypt.hashpw. """
-    import bcrypt
 
-    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt())
 
 
 def _generate_uuid() -> str:
