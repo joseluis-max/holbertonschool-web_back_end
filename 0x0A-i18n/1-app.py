@@ -3,9 +3,22 @@
 """
 
 from flask import Flask, render_template
+from flask_babel import Babel
 
 
 app = Flask("my_beautiful_app")
+babel = Babel(app)
+
+
+class Config():
+    """configures available languages in our app
+    """
+    LANGUAGES = ["en", "fr"]
+    BABEL_DEFAULT_LOCALE = "en"
+    BABEL_DEFAULT_TIMEZONE = "UTC"
+
+
+app.config.from_object(Config)
 
 
 @app.route("/", strict_slashes=False)
