@@ -18,8 +18,9 @@ def count_calls(method: Callable) -> Callable:
         """
         self._redis.incr(key)
         return method(self, *args, **kwargs)
-    
+
     return counter
+
 
 def call_history(method: Callable) -> Callable:
     """ Store the history of inputs and outputs
@@ -28,7 +29,7 @@ def call_history(method: Callable) -> Callable:
 
     @wraps(method)
     def history(self, *args, **kwargs):
-        """ append inputs arguments to history 
+        """ append inputs arguments to history
         """
         input_key = method.__qualname__ + ":inputs"
         output_key = method.__qualname__ + ":outputs"
@@ -38,6 +39,7 @@ def call_history(method: Callable) -> Callable:
 
         return output
     return history
+
 
 def replay(method: Callable):
     """ Displays the history of calls of a particular function.
@@ -80,7 +82,10 @@ class Cache:
         self._redis.set(key, data)
         return key
 
-    def get(self, key: str, fn: Callable = None) -> Union[str, bytes, int, float]:
+    def get(self, key: str, fn: Callable = None) -> Union[str,
+                                                          bytes,
+                                                          int,
+                                                          float]:
         """ Convert the data back to the desired format
         """
         data = self._redis.get(key)
