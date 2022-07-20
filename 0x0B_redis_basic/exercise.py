@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """ Writing strings to Redis from Python
 """
-from curses import keyname
 import redis
 import uuid
 from typing import Union, Callable
