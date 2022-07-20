@@ -32,10 +32,10 @@ def call_history(method: Callable) -> Callable:
         """ append inputs arguments to history 
         """
         input_key = method.__qualname__ + ":inputs"
-        ouput_key = method.__qualname__ + ":outputs"
+        output_key = method.__qualname__ + ":outputs"
         output = method(self, *args, **kwargs)
-        self._redis.rpush(input_key, int(args))
-        self._redis.rpush(ouput_key, int(output))
+        self._redis.rpush(input_key, str(args))
+        self._redis.rpush(output_key, str(output))
 
         return output
     return history
