@@ -40,9 +40,8 @@ def call_history(method: Callable) -> Callable:
         return output
     return history
 
-
 def replay(method: Callable):
-    """displays the history of calls of a particular function.
+    """ Displays the history of calls of a particular function.
     """
     _redis = redis.Redis()
 
