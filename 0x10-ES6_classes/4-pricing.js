@@ -1,4 +1,5 @@
-import Currency from './3-currency.js';
+//eslint no-unused-vars
+import Currency from './3-currency';
 
 export default class Pricing {
   constructor(amount, currency) {
@@ -6,7 +7,7 @@ export default class Pricing {
     this._currency = currency;
   }
 
-  get amount(){
+  get amount() {
     return this._amount;
   }
 
@@ -18,11 +19,11 @@ export default class Pricing {
     this._amount = amount;
   }
 
-  set currency(currency){
+  set currency(currency) {
     this._currency = currency;
   }
 
-  displayFullPrice(){
+  displayFullPrice() {
     return `${this._amount} ${this._currency.name} (${this._currency.code})`;
   }
 
