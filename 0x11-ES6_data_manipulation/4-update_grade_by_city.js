@@ -10,5 +10,5 @@ export default function updateStudentGradeByCity(listStudents, city,  newGrades)
       student.grade = "N/A";
     }
     return student;
-  })
+  });
 }
